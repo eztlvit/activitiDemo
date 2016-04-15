@@ -10,6 +10,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.task.Task;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -19,24 +20,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-mvc.xml")
-public class Test {
+public class JUnitTestBean {
 	
-	@RequestMapping(value="/index",method=RequestMethod.GET)
-	public String index() {
-		System.out.println("--------------");
-		return "index";
-	}
-	
-	@org.junit.Test
+	@Test
 	public void processTests(){
 	    // º”‘ÿ≈‰÷√Œƒº˛
-	    ProcessEngine processEngine = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml").buildProcessEngine();
-	    RepositoryService repositoryService = processEngine.getRepositoryService();
-	    RuntimeService runtimeService = processEngine.getRuntimeService();
-	    repositoryService.createDeployment().addClasspathResource("diagrams/MyProcess.bpmn").deploy();
+//	    ProcessEngine processEngine = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml").buildProcessEngine();
+//	    RepositoryService repositoryService = processEngine.getRepositoryService();
+//	    RuntimeService runtimeService = processEngine.getRuntimeService();
+//	    repositoryService.createDeployment().addClasspathResource("diagrams/MyProcess.bpmn").deploy();
+		
+		ProcessDeployBean pdb = ProcessDeployBean.getInstance();
+		pdb.deployProcessModel();
+		ProcessEngine processEngine = pdb.getProcessEngine();
+		RuntimeService runtimeService = pdb.getRuntimeService();
 	    String processId = runtimeService.startProcessInstanceByKey("MyProcess").getId();
 	 
 	    TaskService taskService = processEngine.getTaskService();
@@ -147,4 +146,5 @@ public class Test {
 		UserBean userBean = (UserBean) applicationContext.getBean("userBean");
 		userBean.hello();
 	}
+
 }

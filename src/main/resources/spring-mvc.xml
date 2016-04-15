@@ -38,7 +38,7 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 		<property name="jobExecutorActivate" value="false" />
 		<property name="beans">
 			<map>
-				<entry key = "printer" value-ref="printer" />
+				<entry key="printer" value-ref="printer" />
 			</map>
 		</property>
 	</bean>
@@ -58,7 +58,7 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 	<bean id="managementService" factory-bean="processEngine"
 		factory-method="getManagementService" />
 
-	<tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+	<!-- <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven> -->
 	<bean id="userBean" class="com.test.springActivitiDemo.UserBean">
 		<property name="runtimeService" ref="runtimeService" />
 	</bean>
