@@ -24,18 +24,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ProcessJUnitTestCase {
 	@Autowired
 	private RuntimeService runtimeService;
+
 	@Autowired
 	private TaskService taskService;
+	
 	@Autowired
-	private RepositoryService repositoryService;
+	@Rule
+	public ActivitiRule activitiSpringRule;
 
 	@Test
-	@Deployment
 	public void simpleProcessTest() {
 
 		// 部署流程图
-		repositoryService.createDeployment().addClasspathResource(
-				"diagrams/VacationRequest.bpmn");
+//		repositoryService.createDeployment().addClasspathResource(
+//				"diagrams/VacationRequest.bpmn");
 		// 构建参数
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("employeeName", "Kermit");
@@ -65,7 +67,6 @@ public class ProcessJUnitTestCase {
 	@Rule
 	public ActivitiRule activitiRule = new ActivitiRule();
 
-	@Test
 	@Deployment
 	public void ruleUsageExample() {
 		RuntimeService runtimeService = activitiRule.getRuntimeService();

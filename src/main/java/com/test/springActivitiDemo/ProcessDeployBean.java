@@ -11,7 +11,7 @@ public class ProcessDeployBean {
 		// º”‘ÿ≈‰÷√Œƒº˛
 	    this.processEngine = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml").buildProcessEngine();
 	    RepositoryService repositoryService = processEngine.getRepositoryService();
-	    repositoryService.createDeployment().addClasspathResource("diagrams/MyProcess.bpmn").deploy();
+	    repositoryService.createDeployment().addClasspathResource("/diagrams/*.bpmn").deploy();
 	    this.runtimeService = processEngine.getRuntimeService();
 	}
 	
